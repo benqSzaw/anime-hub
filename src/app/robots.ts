@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { getServerURL } from '@/lib/utils';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://acme.com/sitemap.xml',
+    sitemap: `${getServerURL()}/sitemap.xml`,
   };
 }

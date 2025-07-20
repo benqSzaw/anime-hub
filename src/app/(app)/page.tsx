@@ -1,5 +1,7 @@
-import Image from 'next/image';
-
 export default function Home() {
-  return <div>anime hub</div>;
+  return (
+    <div>
+      <h1 className="font-heading">anime</h1> hub
+    </div>
+  );
 }

@@ -7,6 +7,8 @@ import sharp from 'sharp';
 
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
+import { Pages } from './collections/Pages';
+
 import { ENV, IS_DEV } from '@/lib/utils';
 
 const filename = fileURLToPath(import.meta.url);
@@ -48,7 +50,7 @@ export default buildConfig({
         }
       : undefined,
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Pages],
   editor: lexicalEditor(),
   secret: ENV('PAYLOAD_SECRET'),
   typescript: {

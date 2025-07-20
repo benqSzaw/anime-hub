@@ -1,11 +1,14 @@
-import { CollectionSlug, getPayload } from 'payload';
+import { CollectionSlug, DataFromCollectionSlug, getPayload } from 'payload';
 import configPromise from '@payload-config';
 
 async function getPayloadInstance() {
   return await getPayload({ config: configPromise });
 }
 
-async function getAllDocuments(collection: CollectionSlug, depth = 2) {
+async function getAllDocuments<T extends CollectionSlug>(
+  collection: CollectionSlug,
+  depth = 2,
+) {
   const payload = await getPayloadInstance();
 
   const pages = await payload.find({
@@ -13,11 +16,11 @@ async function getAllDocuments(collection: CollectionSlug, depth = 2) {
     depth,
   });
 
-  return pages.docs;
+  return pages.docs as DataFromCollectionSlug<T>[];
 }
 
-async function getDocument(
-  collection: CollectionSlug,
+async function getDocument<T extends CollectionSlug>(
+  collection: T,
   slug: string,
   depth = 2,
 ) {
@@ -35,5 +38,7 @@ async function getDocument(
     limit: 1,
   });
 
-  return page.docs[0];
+  return page.docs[0] as DataFromCollectionSlug<T>;
 }
+
+export { getPayloadInstance, getAllDocuments, getDocument };
