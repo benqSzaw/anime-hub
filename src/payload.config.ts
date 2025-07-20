@@ -9,7 +9,8 @@ import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
 
-import { ENV, IS_DEV } from '@/lib/utils';
+import { ENV, getServerURL, IS_DEV } from '@/lib/utils';
+import { seoPlugin } from '@payloadcms/plugin-seo';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -96,5 +97,13 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    seoPlugin({
+      collections: ['pages'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `${doc.title} | Anime Hub`,
+      generateURL: ({ doc }) => `${getServerURL()}/${doc.slug}`,
+      tabbedUI: true,
+    }),
+  ],
 });

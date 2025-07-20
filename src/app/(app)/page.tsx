@@ -1,7 +1,5 @@
-export default function Home() {
-  return (
-    <div>
-      <h1 className="font-heading">anime</h1> hub
-    </div>
-  );
-}
+import PayloadPage, { generateMetadata } from '@/app/(app)/[slug]/page';
+
+export default PayloadPage;
+
+export { generateMetadata };

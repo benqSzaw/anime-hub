@@ -8,12 +8,15 @@ type Overrides = {
   titleOverrides?: Partial<TextField>;
 };
 
-type Slug = (
-  fieldToUse?: string,
-  overrides?: Overrides,
-) => [TextField, CheckboxField, TextField];
+type Props = {
+  fieldToUse?: string;
+  overrides?: Overrides;
+};
 
-export const SlugField: Slug = (fieldToUse = 'title', overrides = {}) => {
+export const SlugField = (
+  props: Props,
+): [TextField, CheckboxField, TextField] => {
+  const { fieldToUse = 'title', overrides = {} } = props;
   const { slugOverrides, checkboxOverrides, titleOverrides } = overrides;
 
   const checkBoxField: CheckboxField = {

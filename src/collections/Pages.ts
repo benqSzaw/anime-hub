@@ -3,6 +3,11 @@ import { SlugField } from '@/collections/fields/slug';
 import { CTA } from '@/blocks/cta';
 import { Content } from '@/blocks/content';
 import { getServerURL } from '@/lib/utils';
+import { populatePublishedAt } from '@/collections/hooks/populate-published-at';
+import {
+  revalidateDelete,
+  revalidatePage,
+} from '@/collections/hooks/revalidate-page';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -13,8 +18,21 @@ export const Pages: CollectionConfig = {
       url: ({ data }) => `${getServerURL()}/${data.slug}`,
     },
   },
+  hooks: {
+    afterChange: [revalidatePage],
+    beforeChange: [populatePublishedAt],
+    afterDelete: [revalidateDelete],
+  },
   fields: [
-    ...SlugField(),
+    ...SlugField({
+      overrides: {
+        slugOverrides: {
+          admin: {
+            description: 'IMPORTANT: "home" slug will be used as homepage',
+          },
+        },
+      },
+    }),
     {
       name: 'layout',
       type: 'blocks',
@@ -24,6 +42,13 @@ export const Pages: CollectionConfig = {
         initCollapsed: true,
       },
     },
+    {
+      name: 'publishedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
   versions: {
     drafts: {
@@ -31,5 +56,6 @@ export const Pages: CollectionConfig = {
         interval: 375,
       },
     },
+    maxPerDoc: 20,
   },
 };

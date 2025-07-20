@@ -6,7 +6,7 @@ async function getPayloadInstance() {
 }
 
 async function getAllDocuments<T extends CollectionSlug>(
-  collection: CollectionSlug,
+  collection: T,
   depth = 2,
 ) {
   const payload = await getPayloadInstance();

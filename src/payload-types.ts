@@ -164,10 +164,22 @@ export interface Media {
  */
 export interface Page {
   id: number;
+  /**
+   * IMPORTANT: "home" slug will be used as homepage
+   */
   slug: string;
   slugLock?: boolean | null;
   title: string;
   layout: (CTABlock | ContentBlock)[];
+  publishedAt?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -334,6 +346,14 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         cta?: T | CTABlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
+      };
+  publishedAt?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;

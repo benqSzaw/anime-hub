@@ -1,11 +1,10 @@
 import './globals.css';
-import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Bungee, Poppins } from 'next/font/google';
+import { layoutMeta } from '@/lib/metadata';
+import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Anime hub',
-};
+export const metadata: Metadata = layoutMeta;
 
 const bungee = Bungee({
   subsets: ['latin'],
