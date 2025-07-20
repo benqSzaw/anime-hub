@@ -2,6 +2,7 @@ import { getDocument } from '@/lib/payload';
 import { notFound } from 'next/navigation';
 import { PageWrapper } from '@/components/ui/page-wrapper';
 import { RenderBlocks } from '@/components/render-blocks';
+import { LivePreview } from '@/components/ui/live-preview';
 
 type Props = {
   params: Promise<{
@@ -16,6 +17,7 @@ export default async function PayloadPages({ params }: Props) {
 
   return (
     <PageWrapper>
+      <LivePreview />
       {page.title}
       <RenderBlocks blocks={page.layout} />
     </PageWrapper>

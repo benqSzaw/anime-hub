@@ -49,6 +49,40 @@ export default buildConfig({
           prefillOnly: true,
         }
       : undefined,
+    livePreview: {
+      breakpoints: [
+        {
+          label: 'Small',
+          name: 'sm',
+          width: 640,
+          height: 960,
+        },
+        {
+          label: 'Medium',
+          name: 'md',
+          width: 768,
+          height: 1024,
+        },
+        {
+          label: 'Large',
+          name: 'lg',
+          width: 1024,
+          height: 1366,
+        },
+        {
+          label: 'Extra Large',
+          name: 'xl',
+          width: 1280,
+          height: 800,
+        },
+        {
+          label: '2X Large',
+          name: '2xl',
+          width: 1536,
+          height: 960,
+        },
+      ],
+    },
   },
   collections: [Users, Media, Pages],
   editor: lexicalEditor(),

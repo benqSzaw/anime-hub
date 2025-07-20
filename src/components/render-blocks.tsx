@@ -3,9 +3,11 @@ import React, { Fragment } from 'react';
 import type { Page } from '@/payload-types';
 
 import { CTAComponent } from '@/blocks/cta/component';
+import { ContentComponent } from '@/blocks/content/component';
 
 const blockComponents = {
   cta: CTAComponent,
+  content: ContentComponent,
 };
 
 type Props = {
@@ -27,6 +29,7 @@ function RenderBlocks(props: Props) {
         if (!Block) return <></>;
         return (
           <Fragment key={index}>
+            {/* @ts-expect-error there may be some mismatch between the expected types here */}
             <Block {...block} />
           </Fragment>
         );
