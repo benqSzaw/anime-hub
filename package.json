@@ -4,13 +4,15 @@
   "private": true,
   "author": "Beniamin Szawracki",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "check:types": "tsc --noEmit"
+    "check:types": "tsc --noEmit",
+    "payload": "payload"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.48.0",

@@ -18,6 +18,28 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: ' | Anime Hub',
+      description: 'Admin panel Anime Hub',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/ico',
+          url: '/favicon.ico',
+        },
+      ],
+    },
+    components: {
+      graphics: {
+        Icon: './components/payload/icon',
+        Logo: './components/payload/logo',
+      },
+      beforeDashboard: ['./components/payload/before-dashboard'],
+      beforeNavLinks: ['./components/payload/before-nav'],
+    },
+    avatar: {
+      Component: './components/payload/avatar',
+    },
     autoLogin: IS_DEV
       ? {
           email: ENV('AUTOLOGIN_MAIL'),
