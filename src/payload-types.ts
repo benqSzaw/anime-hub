@@ -159,14 +159,13 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * IMPORTANT: "home" slug will be used as homepage
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
   id: number;
-  /**
-   * IMPORTANT: "home" slug will be used as homepage
-   */
   slug: string;
   slugLock?: boolean | null;
   title: string;

@@ -14,8 +14,10 @@ export const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    description: 'IMPORTANT: "home" slug will be used as homepage',
     livePreview: {
-      url: ({ data }) => `${getServerURL()}/${data.slug}`,
+      url: ({ data }) =>
+        `${getServerURL()}/${data.slug == 'home' ? '' : data.slug}`,
     },
   },
   hooks: {
@@ -24,15 +26,7 @@ export const Pages: CollectionConfig = {
     afterDelete: [revalidateDelete],
   },
   fields: [
-    ...SlugField({
-      overrides: {
-        slugOverrides: {
-          admin: {
-            description: 'IMPORTANT: "home" slug will be used as homepage',
-          },
-        },
-      },
-    }),
+    ...SlugField({}),
     {
       name: 'layout',
       type: 'blocks',
