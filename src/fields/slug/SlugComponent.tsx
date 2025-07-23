@@ -90,6 +90,9 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
         path={path || field.name}
         readOnly={Boolean(readOnly)}
       />
+      {field.admin?.description && (
+        <p className="description">{field.admin.description as string}</p>
+      )}
     </div>
   );
 };

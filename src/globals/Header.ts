@@ -7,6 +7,7 @@ export const Header: GlobalConfig = {
     {
       name: 'links',
       type: 'array',
+      maxRows: 5,
       fields: [LinkField],
     },
   ],

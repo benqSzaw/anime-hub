@@ -5,7 +5,6 @@ import { formatSlugHook } from './formatSlug';
 type Overrides = {
   slugOverrides?: Partial<TextField>;
   checkboxOverrides?: Partial<CheckboxField>;
-  titleOverrides?: Partial<TextField>;
 };
 
 type Props = {
@@ -13,11 +12,9 @@ type Props = {
   overrides?: Overrides;
 };
 
-export const SlugField = (
-  props: Props,
-): [TextField, CheckboxField, TextField] => {
+export const SlugField = (props: Props): [TextField, CheckboxField] => {
   const { fieldToUse = 'title', overrides = {} } = props;
-  const { slugOverrides, checkboxOverrides, titleOverrides } = overrides;
+  const { slugOverrides, checkboxOverrides } = overrides;
 
   const checkBoxField: CheckboxField = {
     name: 'slugLock',
@@ -50,7 +47,7 @@ export const SlugField = (
       ...(slugOverrides?.admin || {}),
       components: {
         Field: {
-          path: '@/collections/fields/slug/SlugComponent#SlugComponent',
+          path: '@/fields/slug/SlugComponent#SlugComponent',
           clientProps: {
             fieldToUse,
             checkboxFieldPath: checkBoxField.name,
@@ -60,14 +57,5 @@ export const SlugField = (
     },
   };
 
-  // @ts-expect-error - ts mismatch Partial<TextField> with TextField
-  const titleField: TextField = {
-    required: true,
-    name: 'title',
-    type: 'text',
-    label: 'Title',
-    ...(titleOverrides || {}),
-  };
-
-  return [slugField, checkBoxField, titleField];
+  return [slugField, checkBoxField];
 };

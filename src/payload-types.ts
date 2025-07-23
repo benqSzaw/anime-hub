@@ -165,18 +165,13 @@ export interface Media {
   focalY?: number | null;
 }
 /**
- * IMPORTANT: "home" slug will be used as homepage
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
   id: number;
-  slug: string;
-  slugLock?: boolean | null;
   title: string;
   layout: (CTABlock | ContentBlock)[];
-  publishedAt?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -185,6 +180,12 @@ export interface Page {
      */
     image?: (number | null) | Media;
   };
+  /**
+   * Page with "home" slug will be used as homepage
+   */
+  slug: string;
+  slugLock?: boolean | null;
+  publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -343,8 +344,6 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  slug?: T;
-  slugLock?: T;
   title?: T;
   layout?:
     | T
@@ -352,7 +351,6 @@ export interface PagesSelect<T extends boolean = true> {
         cta?: T | CTABlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
       };
-  publishedAt?: T;
   meta?:
     | T
     | {
@@ -360,6 +358,9 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  slug?: T;
+  slugLock?: T;
+  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
