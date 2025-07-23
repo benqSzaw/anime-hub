@@ -9,6 +9,9 @@ import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
 
+import { Header } from './globals/Header';
+import { Footer } from './globals/Footer';
+
 import { ENV, getServerURL, IS_DEV } from '@/lib/utils';
 import { seoPlugin } from '@payloadcms/plugin-seo';
 
@@ -86,6 +89,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Pages],
+  globals: [Header, Footer],
   editor: lexicalEditor(),
   secret: ENV('PAYLOAD_SECRET'),
   typescript: {

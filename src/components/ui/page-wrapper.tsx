@@ -8,7 +8,7 @@ type Props = {
 function PageWrapper(props: Props) {
   const { className, children, ...rest } = props;
   return (
-    <main className={cn('min-h-svh space-y-10 py-8', className)} {...rest}>
+    <main className={cn('space-y-10 py-8', className)} {...rest}>
       {children}
     </main>
   );

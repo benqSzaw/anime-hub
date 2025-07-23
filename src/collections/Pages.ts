@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { SlugField } from '@/collections/fields/slug';
+import { SlugField } from '@/fields/slug';
 import { CTA } from '@/blocks/cta';
 import { Content } from '@/blocks/content';
 import { getServerURL } from '@/lib/utils';
