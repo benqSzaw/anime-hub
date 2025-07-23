@@ -1,13 +1,13 @@
-import { User, Search } from 'lucide-react';
+import Link from 'next/link';
+import { Search, User } from 'lucide-react';
 import { getPayloadInstance } from '@/lib/payload';
-import { Link } from '@/components/ui/link';
+import { CmsLink } from '@/components/ui/cms-link';
 import { Button } from '@/components/ui/button';
-import { Page } from '@/payload-types';
 
 async function Header() {
   const payload = await getPayloadInstance();
 
-  const header = await payload.findGlobal({ slug: 'header' });
+  const header = await payload.findGlobal({ slug: 'header', depth: 2 });
 
   return (
     <header className="max-w-8xl sticky top-0 flex h-16 w-full items-center justify-between border-b px-5">
@@ -18,17 +18,7 @@ async function Header() {
             <ul className="flex items-center gap-4">
               {header.links.map(item => (
                 <li key={item.id}>
-                  <Button variant="outline" asChild>
-                    <Link
-                      href={
-                        item.link.type == 'custom'
-                          ? item.link.url!
-                          : `/${(item.link.reference?.value as Page).slug}`
-                      }
-                    >
-                      {item.link.label}
-                    </Link>
-                  </Button>
+                  <CmsLink {...item.link} />
                 </li>
               ))}
             </ul>
@@ -49,4 +39,5 @@ async function Header() {
     </header>
   );
 }
+
 export { Header };

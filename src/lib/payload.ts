@@ -41,4 +41,6 @@ async function getDocument<T extends CollectionSlug>(
   return page.docs[0] as DataFromCollectionSlug<T>;
 }
 
-export { getPayloadInstance, getAllDocuments, getDocument };
+const formatPageSlug = (slug: string) => (slug === 'home' ? '' : slug);
+
+export { getPayloadInstance, getAllDocuments, getDocument, formatPageSlug };

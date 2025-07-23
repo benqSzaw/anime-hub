@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getServerURL } from '@/lib/utils';
 import { Media, Page } from '@/payload-types';
+import { formatPageSlug } from '@/lib/payload';
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
@@ -45,7 +46,7 @@ export const generatePageMeta = (page: Page): Metadata => {
     openGraph: mergeOpenGraph({
       title: page.meta?.title || undefined,
       description: page.meta?.description || undefined,
-      url: `${getServerURL()}/${page.slug}`,
+      url: `${getServerURL()}/${formatPageSlug(page.slug)}`,
       images: img && [
         {
           url: img.url as string,
