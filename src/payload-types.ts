@@ -446,6 +446,13 @@ export interface Header {
 export interface Footer {
   id: number;
   text: string;
+  socials?:
+    | {
+        link: string;
+        icon: 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'github' | 'reddit' | 'pinterest';
+        id?: string | null;
+      }[]
+    | null;
   links?:
     | {
         link: {
@@ -493,6 +500,13 @@ export interface HeaderSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   text?: T;
+  socials?:
+    | T
+    | {
+        link?: T;
+        icon?: T;
+        id?: T;
+      };
   links?:
     | T
     | {
