@@ -2,7 +2,6 @@ import NextLink from 'next/link';
 import React from 'react';
 import { Page } from '@/payload-types';
 import { formatPageSlug } from '@/lib/payload';
-import { Button } from '@/components/ui/button';
 
 type Props = {
   type: 'reference' | 'custom';
@@ -13,24 +12,24 @@ type Props = {
     value: number | Page;
   } | null;
   url?: string | null;
+  className?: string;
 };
 
 function CmsLink(props: Props) {
-  const { type, newTab, label, reference, url } = props;
+  const { type, newTab, label, reference, url, className } = props;
   return (
-    <Button variant="outline" asChild>
-      <NextLink
-        href={
-          type == 'custom'
-            ? url!
-            : `/${formatPageSlug((reference?.value as Page).slug)}`
-        }
-        rel={type == 'custom' ? 'noopener noreferrer' : undefined}
-        target={newTab ? '_blank' : undefined}
-      >
-        {label}
-      </NextLink>
-    </Button>
+    <NextLink
+      href={
+        type == 'custom'
+          ? url!
+          : `/${formatPageSlug((reference?.value as Page).slug)}`
+      }
+      rel={type == 'custom' ? 'noopener noreferrer' : undefined}
+      target={newTab ? '_blank' : undefined}
+      className={className || undefined}
+    >
+      {label}
+    </NextLink>
   );
 }
 

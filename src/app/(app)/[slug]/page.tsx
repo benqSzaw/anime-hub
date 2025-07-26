@@ -38,7 +38,6 @@ export default async function PayloadPage({ params }: Props) {
   return (
     <PageWrapper>
       <LivePreview />
-      {page.title}
       <RenderBlocks blocks={page.layout} />
     </PageWrapper>
   );

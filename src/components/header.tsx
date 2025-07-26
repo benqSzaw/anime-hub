@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 
 async function Header() {
   const payload = await getPayloadInstance();
-
   const header = await payload.findGlobal({ slug: 'header', depth: 2 });
 
   return (
@@ -18,7 +17,9 @@ async function Header() {
             <ul className="flex items-center gap-4">
               {header.links.map(item => (
                 <li key={item.id}>
-                  <CmsLink {...item.link} />
+                  <Button variant="ghost">
+                    <CmsLink {...item.link} />
+                  </Button>
                 </li>
               ))}
             </ul>
