@@ -11,6 +11,7 @@ import { Pages } from './collections/Pages';
 
 import { Header } from './globals/Header';
 import { Footer } from './globals/Footer';
+import { Settings } from './globals/Settings';
 
 import { ENV, getServerURL, IS_DEV } from '@/lib/utils';
 import { seoPlugin } from '@payloadcms/plugin-seo';
@@ -89,7 +90,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Pages],
-  globals: [Header, Footer],
+  globals: [Header, Footer, Settings],
   editor: lexicalEditor(),
   secret: ENV('PAYLOAD_SECRET'),
   typescript: {

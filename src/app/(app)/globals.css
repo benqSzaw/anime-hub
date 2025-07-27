@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --height-header: 64px;
+
   --font-heading: var(--font-heading);
   --font-text: var(--font-text);
 
@@ -151,4 +153,12 @@
   h6 {
     @apply font-heading;
   }
+}
+
+@utility min-h-header {
+    @apply min-h-[var(--header-height)];
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
 }

@@ -9,7 +9,7 @@ async function Header() {
   const header = await payload.findGlobal({ slug: 'header', depth: 2 });
 
   return (
-    <header className="max-w-8xl sticky top-0 flex h-16 w-full items-center justify-between border-b px-5">
+    <header className="max-w-8xl h-header bg-background sticky top-0 flex w-full items-center justify-between border-b px-5">
       <div className="flex items-center gap-2">
         <p>logo</p>
         {header.links && (

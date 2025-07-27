@@ -89,10 +89,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    settings: Setting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -446,13 +448,6 @@ export interface Header {
 export interface Footer {
   id: number;
   text: string;
-  socials?:
-    | {
-        link: string;
-        icon: 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'github' | 'reddit' | 'pinterest';
-        id?: string | null;
-      }[]
-    | null;
   links?:
     | {
         link: {
@@ -465,6 +460,23 @@ export interface Footer {
           } | null;
           url?: string | null;
         };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  logo?: (number | null) | Media;
+  socials?:
+    | {
+        link: string;
+        icon: 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'github' | 'reddit' | 'pinterest';
         id?: string | null;
       }[]
     | null;
@@ -500,13 +512,6 @@ export interface HeaderSelect<T extends boolean = true> {
  */
 export interface FooterSelect<T extends boolean = true> {
   text?: T;
-  socials?:
-    | T
-    | {
-        link?: T;
-        icon?: T;
-        id?: T;
-      };
   links?:
     | T
     | {
@@ -519,6 +524,23 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
             };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  logo?: T;
+  socials?:
+    | T
+    | {
+        link?: T;
+        icon?: T;
         id?: T;
       };
   updatedAt?: T;

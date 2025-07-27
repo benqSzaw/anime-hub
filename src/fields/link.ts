@@ -1,4 +1,5 @@
 import { GroupField } from 'payload';
+import { urlValidation } from '@/collections/hooks/url-validation';
 
 export const LinkField: GroupField = {
   name: 'link',
@@ -65,6 +66,8 @@ export const LinkField: GroupField = {
           admin: {
             condition: (_, siblingData) => siblingData?.type === 'custom',
           },
+          //@ts-expect-error payload does not recognize type of value
+          validate: value => urlValidation(value),
           label: 'Custom URL',
           required: true,
         },

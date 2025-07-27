@@ -8,14 +8,15 @@ import { ExternalLink } from '@/components/ui/external-link';
 
 async function Footer() {
   const payload = await getPayloadInstance();
+  const settings = await payload.findGlobal({ slug: 'settings', depth: 2 });
   const footer = await payload.findGlobal({ slug: 'footer', depth: 2 });
 
   return (
     <footer className="space-y-4 border-t py-4">
-      {footer.socials && (
+      {settings.socials && settings.socials.length > 0 && (
         <Container size="sm">
           <ul className="flex flex-wrap items-center justify-center gap-4">
-            {footer.socials.map(item => (
+            {settings.socials.map(item => (
               <li key={item.id}>
                 <Button
                   variant="outline"
@@ -32,7 +33,7 @@ async function Footer() {
           </ul>
         </Container>
       )}
-      {footer.links && (
+      {footer.links && footer.links.length > 0 && (
         <Container size="sm">
           <ul className="flex flex-wrap items-center justify-center gap-4">
             {footer.links.map(item => (
