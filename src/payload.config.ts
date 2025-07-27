@@ -38,8 +38,8 @@ export default buildConfig({
     },
     components: {
       graphics: {
-        Icon: './components/payload/icon',
-        Logo: './components/payload/logo',
+        Icon: './components/ui/icon',
+        Logo: './components/ui/logo',
       },
       beforeDashboard: ['./components/payload/before-dashboard'],
       beforeNavLinks: ['./components/payload/before-nav'],

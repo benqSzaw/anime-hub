@@ -6,14 +6,6 @@ export const Settings: GlobalConfig = {
   slug: 'settings',
   fields: [
     {
-      name: 'logo',
-      type: 'upload',
-      relationTo: 'media',
-      filterOptions: {
-        mimeType: { contains: 'image' },
-      },
-    },
-    {
       name: 'socials',
       type: 'array',
       fields: [

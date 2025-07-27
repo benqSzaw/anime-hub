@@ -472,7 +472,6 @@ export interface Footer {
  */
 export interface Setting {
   id: number;
-  logo?: (number | null) | Media;
   socials?:
     | {
         link: string;
@@ -535,7 +534,6 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  logo?: T;
   socials?:
     | T
     | {

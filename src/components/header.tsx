@@ -3,6 +3,7 @@ import { Search, User } from 'lucide-react';
 import { getPayloadInstance } from '@/lib/payload';
 import { CmsLink } from '@/components/ui/cms-link';
 import { Button } from '@/components/ui/button';
+import Logo from '@/components/ui/logo';
 
 async function Header() {
   const payload = await getPayloadInstance();
@@ -11,7 +12,9 @@ async function Header() {
   return (
     <header className="max-w-8xl h-header bg-background sticky top-0 flex w-full items-center justify-between border-b px-5">
       <div className="flex items-center gap-2">
-        <p>logo</p>
+        <Link href="/">
+          <Logo className="h-header w-auto" />
+        </Link>
         {header.links && (
           <nav>
             <ul className="flex items-center gap-4">

@@ -1,6 +1,6 @@
 # Anime hub
 
-## Technologies
+## Tech stack
 
 - Next.js
 - Payload CMS
