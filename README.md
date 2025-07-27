@@ -34,7 +34,7 @@ Do not change name of files or change variables in code.
 - Fonts
   - Replace next fonts in `src/app/(app)/layout.tsx` file, do not change variables.
 - Images
-  - Favicon - change files `public/favicon.ico` and `src/app/(app)/favicon.ico`
+  - Favicon - change files `public/favicon.ico`
   - Logo - change file `public/logo-circle.png` and `public/logo-rectangle.png`
 
 ## License

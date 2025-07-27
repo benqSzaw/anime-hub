@@ -155,10 +155,14 @@
   }
 }
 
-@utility min-h-header {
-    @apply min-h-[var(--header-height)];
+@utility min-h-screen-header {
+    @apply min-h-[calc(100vh-var(--height-header))];
 }
 
 @utility flex-center {
   @apply flex items-center justify-center;
+}
+
+@utility decorated-link {
+  @apply underline underline-offset-3 decoration-1;
 }

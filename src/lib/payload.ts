@@ -43,4 +43,12 @@ async function getDocument<T extends CollectionSlug>(
 
 const formatPageSlug = (slug: string) => (slug === 'home' ? '' : slug);
 
-export { getPayloadInstance, getAllDocuments, getDocument, formatPageSlug };
+const OTHER_PAGES = ['account', 'login', 'register'];
+
+export {
+  getPayloadInstance,
+  getAllDocuments,
+  getDocument,
+  formatPageSlug,
+  OTHER_PAGES,
+};

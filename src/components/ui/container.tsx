@@ -11,7 +11,7 @@ function Container(props: Props) {
   return (
     <section
       className={cn(
-        size === 'xs' && 'max-w-2xl',
+        size === 'xs' && 'max-w-sm',
         size === 'sm' && 'max-w-4xl',
         size === 'md' && 'max-w-6xl',
         'mx-auto px-2 sm:px-4',

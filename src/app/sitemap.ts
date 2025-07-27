@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getServerURL } from '@/lib/utils';
 import { unstable_cache } from 'next/cache';
-import { getAllDocuments } from '@/lib/payload';
+import { getAllDocuments, OTHER_PAGES } from '@/lib/payload';
 
 export const getCachedPages = unstable_cache(
   async () => getAllDocuments('pages'),
@@ -30,6 +30,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: page.publishedAt || new Date(),
       changeFrequency: 'monthly' as ChangeFrequency,
       priority: page.slug === 'home' ? 1.0 : 0.8,
+    })),
+    ...OTHER_PAGES.map(page => ({
+      url: url(page),
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as ChangeFrequency,
+      priority: 0.8,
     })),
   ];
 }

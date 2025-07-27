@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 
 export default function NotFoundPage() {
   return (
-    <PageWrapper className="flex-center min-h-screen">
+    <PageWrapper className="flex-center min-h-screen-header">
       <Container className="space-y-4 text-center">
         <h1 className="text-4xl">Page not found</h1>
         <Button variant="outline" className="w-full" asChild>

@@ -9,6 +9,7 @@ import {
   revalidatePage,
 } from '@/collections/hooks/revalidate-page';
 import { titleField } from '@/fields/title';
+import { OTHER_PAGES } from '@/lib/payload';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -49,6 +50,12 @@ export const Pages: CollectionConfig = {
     ...SlugField({
       overrides: {
         slugOverrides: {
+          //@ts-expect-error payload not recognizing the type
+          validate: value => {
+            if (OTHER_PAGES.includes(value))
+              return `The slug "${value}" is reserved and cannot be used.`;
+            return true;
+          },
           admin: {
             description: 'Page with "home" slug will be used as homepage',
           },
