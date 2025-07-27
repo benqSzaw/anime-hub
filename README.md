@@ -17,10 +17,7 @@
  cd anime-hub
  # Install dependencies
  npm install
- # Create a .env file in the root directory and add the following environment variables like in .env.example:
- DATABASE_URL=your_postgres_url
- PAYLOAD_SECRET=your_payload_secret
- URL=your_website_url
+ # Create a .env file in the root directory and add the variables like in .env.example:
  # Start project
  npm run dev
 ```

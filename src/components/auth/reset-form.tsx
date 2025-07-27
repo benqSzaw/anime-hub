@@ -13,23 +13,25 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import Link from 'next/link';
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  password: z.string().min(6, {
-    message: 'Password must be at least 6 characters.',
-  }),
-});
+const formSchema = z
+  .object({
+    password: z.string().min(6, {
+      message: 'Password must be at least 6 characters.',
+    }),
+    repeatPassword: z.string(),
+  })
+  .refine(data => data.password === data.repeatPassword, {
+    path: ['repeatPassword'],
+    message: 'Passwords do not match',
+  });
 
-function LoginForm() {
+function ResetForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
       password: '',
+      repeatPassword: '',
     },
   });
 
@@ -42,12 +44,12 @@ function LoginForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="username"
+          name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>New password</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -55,16 +57,10 @@ function LoginForm() {
         />
         <FormField
           control={form.control}
-          name="password"
+          name="repeatPassword"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center justify-between">
-                <FormLabel>Password</FormLabel>
-                <Link href="/forgot" className="decorated-link text-xs">
-                  Forgot password?
-                </Link>
-              </div>
-
+              <FormLabel>Repeat new password</FormLabel>
               <FormControl>
                 <Input type="password" {...field} />
               </FormControl>
@@ -73,11 +69,11 @@ function LoginForm() {
           )}
         />
         <Button className="w-full" type="submit">
-          Login
+          Reset Password
         </Button>
       </form>
     </Form>
   );
 }
 
-export { LoginForm };
+export { ResetForm };
