@@ -14,6 +14,7 @@ async function getAllDocuments<T extends CollectionSlug>(
   const pages = await payload.find({
     collection,
     depth,
+    limit: 1000,
   });
 
   return pages.docs as DataFromCollectionSlug<T>[];

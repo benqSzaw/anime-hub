@@ -129,6 +129,10 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  /**
+   * Only admins can assign admin or moderator roles.
+   */
+  role: 'admin' | 'moderator' | 'user';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -306,6 +310,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
