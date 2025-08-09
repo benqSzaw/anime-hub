@@ -28,7 +28,7 @@ const formSchema = z.object({
     .min(PASS_MIN_LENGTH, {
       message: `Password must be at least ${PASS_MIN_LENGTH} characters.`,
     })
-    .min(PASS_MAX_LENGTH, {
+    .max(PASS_MAX_LENGTH, {
       message: `Password must be at most ${PASS_MAX_LENGTH} characters.`,
     }),
 });

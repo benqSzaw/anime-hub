@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload';
 import {
   admin,
-  anyone,
   adminOrOwn,
-  moderatorOrOwn,
+  anyone,
   moderator,
+  moderatorOrOwn,
 } from '@/lib/access';
-import { getServerURL } from '@/lib/utils';
+import { renderVerifyEmail } from '@/emails/get-email';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -25,12 +25,8 @@ export const Users: CollectionConfig = {
   auth: {
     verify: {
       generateEmailSubject: () => `Verify your account on Anime Hub`,
-      generateEmailHTML: ({ token, user }) => `
-        <p>Hi ${user.username},</p>
-        <p>Thank you for registering on Anime Hub. Please click the link below to verify your account:</p>
-        <p><a href=${getServerURL()}/verify?t=${token}>Verify Account</a></p>
-        <p>If you did not create this account, please ignore this email.</p>
-      `,
+      generateEmailHTML: async ({ token, user }) =>
+        renderVerifyEmail(user.username, token),
     },
   },
   fields: [

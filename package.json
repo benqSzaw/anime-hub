@@ -13,7 +13,10 @@
     "format": "prettier --write .",
     "check:types": "tsc --noEmit",
     "payload": "payload",
-    "flush": "payload migrate:create && payload migrate"
+    "db:flush": "payload migrate:create && payload migrate",
+    "email:build": "email build",
+    "email:dev": "email dev --dir ./src/emails",
+    "email:export": "email export"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.0",
@@ -25,6 +28,8 @@
     "@payloadcms/richtext-lexical": "^3.48.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@react-email/components": "^0.5.0",
+    "@react-email/render": "1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "graphql": "^16.11.0",
@@ -41,6 +46,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@react-email/preview-server": "^4.2.8",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
@@ -50,6 +56,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
+    "react-email": "^4.2.8",
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"
