@@ -99,3 +99,38 @@ export async function verifyAction(token: string) {
     return { success: false };
   }
 }
+
+export async function forgotAction(email: string) {
+  try {
+    const payload = await getPayloadInstance();
+    const isUserExist = await payload
+      .find({
+        collection: 'users',
+        where: {
+          email: {
+            equals: email,
+          },
+        },
+      })
+      .then(res => res.totalDocs > 0);
+
+    if (!isUserExist) {
+      return { success: false, error: 'User with that email does not exist' };
+    }
+
+    await payload.forgotPassword({
+      collection: 'users',
+      data: {
+        email,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Forgot password error:', error);
+    return {
+      success: false,
+      error: 'Error processing forgot password request',
+    };
+  }
+}

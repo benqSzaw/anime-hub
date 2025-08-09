@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { forgotAction } from '@/lib/auth-actions';
 
 const formSchema = z.object({
   email: z.email({
@@ -28,8 +29,16 @@ function ForgotForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { success, error } = await forgotAction(values.email);
+    if (success) {
+      // TODO show success message in UI or smth
+    } else {
+      form.setError('email', {
+        type: 'manual',
+        message: error,
+      });
+    }
   }
 
   return (

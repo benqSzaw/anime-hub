@@ -6,7 +6,7 @@ import {
   moderator,
   moderatorOrOwn,
 } from '@/lib/access';
-import { renderVerifyEmail } from '@/emails/get-email';
+import { renderResetPassEmail, renderVerifyEmail } from '@/emails/get-email';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -27,6 +27,11 @@ export const Users: CollectionConfig = {
       generateEmailSubject: () => `Verify your account on Anime Hub`,
       generateEmailHTML: async ({ token, user }) =>
         renderVerifyEmail(user.username, token),
+    },
+    forgotPassword: {
+      generateEmailSubject: () => `Reset your password on Anime Hub`,
+      generateEmailHTML: async data =>
+        renderResetPassEmail(data?.user.username, data?.token || ''),
     },
   },
   fields: [
