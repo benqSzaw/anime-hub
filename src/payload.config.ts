@@ -13,8 +13,12 @@ import { Header } from './globals/Header';
 import { Footer } from './globals/Footer';
 import { Settings } from './globals/Settings';
 
-import { ENV, getServerURL, IS_DEV } from '@/lib/utils';
 import { seoPlugin } from '@payloadcms/plugin-seo';
+
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
+import nodemailer from 'nodemailer';
+
+import { ENV, getServerURL, IS_DEV } from '@/lib/utils';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -100,6 +104,17 @@ export default buildConfig({
     pool: {
       connectionString: ENV('DATABASE_URI'),
     },
+  }),
+  email: nodemailerAdapter({
+    defaultFromAddress: 'no-reply@animehub.com',
+    defaultFromName: 'Anime Hub',
+    transport: nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: ENV('SMTP_USER'),
+        pass: ENV('SMTP_PASS'),
+      },
+    }),
   }),
   sharp,
   plugins: [

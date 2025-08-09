@@ -6,6 +6,7 @@ import {
   moderatorOrOwn,
   moderator,
 } from '@/lib/access';
+import { getServerURL } from '@/lib/utils';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -21,7 +22,17 @@ export const Users: CollectionConfig = {
     admin: moderator,
     readVersions: moderator,
   },
-  auth: true,
+  auth: {
+    verify: {
+      generateEmailSubject: () => `Verify your account on Anime Hub`,
+      generateEmailHTML: ({ token, user }) => `
+        <p>Hi ${user.username},</p>
+        <p>Thank you for registering on Anime Hub. Please click the link below to verify your account:</p>
+        <p><a href=${getServerURL()}/verify?t=${token}>Verify Account</a></p>
+        <p>If you did not create this account, please ignore this email.</p>
+      `,
+    },
+  },
   fields: [
     {
       required: true,

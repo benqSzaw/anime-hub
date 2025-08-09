@@ -49,8 +49,9 @@ const OTHER_PAGES = [
   'login',
   'register',
   'forgot',
-  'activate',
+  'verify',
   'reset',
+  'confirm',
 ];
 
 export {

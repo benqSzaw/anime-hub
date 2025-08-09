@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { loginAction } from '@/lib/auth-actions';
 import { PASS_MIN_LENGTH, PASS_MAX_LENGTH } from '@/lib/access';
+import { redirect } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.email({
@@ -44,7 +45,7 @@ function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { success, error } = await loginAction(values);
     if (success) {
-      console.log('Successfully logged in');
+      redirect('/account');
     } else {
       form.setError('root', {
         type: 'manual',

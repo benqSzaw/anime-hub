@@ -84,3 +84,18 @@ export async function registerAction({
     return { success: false, error: 'Registration error' };
   }
 }
+
+export async function verifyAction(token: string) {
+  try {
+    const payload = await getPayloadInstance();
+    await payload.verifyEmail({
+      collection: 'users',
+      token,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Verification error:', error);
+    return { success: false };
+  }
+}

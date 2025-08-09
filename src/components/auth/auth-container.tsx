@@ -30,9 +30,11 @@ function AuthContainer(props: Props) {
         )}
       </CardHeader>
       <CardContent>{children}</CardContent>
-      <CardFooter className="justify-center text-center text-sm">
-        {footer}
-      </CardFooter>
+      {footer && (
+        <CardFooter className="justify-center text-center text-sm">
+          {footer}
+        </CardFooter>
+      )}
     </Card>
   );
 }
