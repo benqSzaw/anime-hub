@@ -11,9 +11,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PASS_MAX_LENGTH, PASS_MIN_LENGTH } from '@/lib/access';
+import { resetAction } from '@/lib/auth-actions';
 
 const formSchema = z
   .object({
@@ -32,7 +34,7 @@ const formSchema = z
     message: 'Passwords do not match',
   });
 
-function ResetForm() {
+function ResetForm({ token }: { token: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,8 +43,13 @@ function ResetForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { success, error } = await resetAction(token, values.password);
+    if (success) {
+      console.log('Password reset successfully');
+    } else {
+      form.setError('root', { type: 'manual', message: error });
+    }
   }
 
   return (
@@ -74,6 +81,7 @@ function ResetForm() {
             </FormItem>
           )}
         />
+        <FormRootError />
         <Button className="w-full" type="submit">
           Reset Password
         </Button>

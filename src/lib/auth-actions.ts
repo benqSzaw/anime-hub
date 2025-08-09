@@ -134,3 +134,21 @@ export async function forgotAction(email: string) {
     };
   }
 }
+
+export async function resetAction(token: string, password: string) {
+  try {
+    const payload = await getPayloadInstance();
+    await payload.resetPassword({
+      collection: 'users',
+      overrideAccess: true,
+      data: {
+        token,
+        password,
+      },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Reset password error:', error);
+    return { success: false, error: 'Error resetting password' };
+  }
+}

@@ -9,9 +9,10 @@ export default async function ResetPage({
 }) {
   const token = (await searchParams).t;
   if (!token || typeof token !== 'string') notFound();
+
   return (
     <AuthContainer title="Reset Password">
-      <ResetForm />
+      <ResetForm token={token} />
     </AuthContainer>
   );
 }
