@@ -11,15 +11,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
+import { loginAction } from '@/lib/auth-actions';
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
+  email: z.email({
+    error: 'Invalid email address.',
   }),
-  password: z.string().min(6, {
+  password: z.string().min(5, {
     message: 'Password must be at least 6 characters.',
   }),
 });
@@ -28,13 +30,21 @@ function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { success, error } = await loginAction(values);
+    if (success) {
+      console.log('Successfully logged in');
+    } else {
+      form.setError('root', {
+        type: 'manual',
+        message: error,
+      });
+    }
   }
 
   return (
@@ -42,12 +52,12 @@ function LoginForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type="email" autoComplete="email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,6 +85,7 @@ function LoginForm() {
         <Button className="w-full" type="submit">
           Login
         </Button>
+        <FormRootError />
       </form>
     </Form>
   );
