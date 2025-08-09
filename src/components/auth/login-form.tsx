@@ -16,14 +16,20 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { loginAction } from '@/lib/auth-actions';
+import { PASS_MIN_LENGTH, PASS_MAX_LENGTH } from '@/lib/access';
 
 const formSchema = z.object({
   email: z.email({
     error: 'Invalid email address.',
   }),
-  password: z.string().min(5, {
-    message: 'Password must be at least 6 characters.',
-  }),
+  password: z
+    .string()
+    .min(PASS_MIN_LENGTH, {
+      message: `Password must be at least ${PASS_MIN_LENGTH} characters.`,
+    })
+    .min(PASS_MAX_LENGTH, {
+      message: `Password must be at most ${PASS_MAX_LENGTH} characters.`,
+    }),
 });
 
 function LoginForm() {

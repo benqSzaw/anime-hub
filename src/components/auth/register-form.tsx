@@ -11,17 +11,34 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PASS_MAX_LENGTH, PASS_MIN_LENGTH } from '@/lib/access';
+import { registerAction } from '@/lib/auth-actions';
+import { redirect } from 'next/navigation';
 
 const formSchema = z
   .object({
-    email: z.string().min(2, {
-      message: 'Username must be at least 2 characters.',
+    username: z
+      .string()
+      .min(2, {
+        message: 'Username must be at least 2 characters.',
+      })
+      .max(32, {
+        message: 'Username must be at most 32 characters.',
+      }),
+    email: z.email({
+      error: 'Invalid email address.',
     }),
-    password: z.string().min(6, {
-      message: 'Password must be at least 6 characters.',
-    }),
+    password: z
+      .string()
+      .min(PASS_MIN_LENGTH, {
+        message: `Password must be at least ${PASS_MIN_LENGTH} characters.`,
+      })
+      .max(PASS_MAX_LENGTH, {
+        message: `Password must be at most ${PASS_MAX_LENGTH} characters.`,
+      }),
     repeatPassword: z.string(),
   })
   .refine(data => data.password === data.repeatPassword, {
@@ -33,14 +50,23 @@ function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: '',
       email: '',
       password: '',
       repeatPassword: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { success, error } = await registerAction(values);
+    if (success) {
+      redirect('/confirm');
+    } else {
+      form.setError('root', {
+        type: 'manual',
+        message: error,
+      });
+    }
   }
 
   return (
@@ -54,6 +80,19 @@ function RegisterForm() {
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} type="email" autoComplete="email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -85,6 +124,7 @@ function RegisterForm() {
             </FormItem>
           )}
         />
+        <FormRootError />
         <Button className="w-full" type="submit">
           Register
         </Button>

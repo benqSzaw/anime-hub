@@ -156,7 +156,7 @@
 }
 
 @utility min-h-screen-header {
-    @apply min-h-[calc(100vh-var(--height-header))];
+  @apply min-h-[calc(100vh-var(--height-header))];
 }
 
 @utility flex-center {
@@ -164,5 +164,5 @@
 }
 
 @utility decorated-link {
-  @apply underline underline-offset-3 decoration-1;
+  @apply underline decoration-1 underline-offset-3;
 }
