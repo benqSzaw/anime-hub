@@ -1,8 +1,9 @@
 'use server';
 
-import { login } from '@payloadcms/next/auth';
+import { login, logout } from '@payloadcms/next/auth';
 import config from '@payload-config';
 import { getPayloadInstance } from '@/lib/payload';
+import { headers as getHeaders } from 'next/headers';
 
 export async function loginAction({
   email,
@@ -151,4 +152,21 @@ export async function resetAction(token: string, password: string) {
     console.error('Reset password error:', error);
     return { success: false, error: 'Error resetting password' };
   }
+}
+
+export async function logoutAction() {
+  try {
+    await logout({ allSessions: true, config });
+    return { success: true };
+  } catch (error) {
+    console.error('Logout error:', error);
+    return { success: false, error: 'Logout failed' };
+  }
+}
+
+export async function authenticateUser() {
+  const payload = await getPayloadInstance();
+  const headers = await getHeaders();
+  const { user } = await payload.auth({ headers });
+  return !!user;
 }

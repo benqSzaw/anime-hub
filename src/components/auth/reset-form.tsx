@@ -46,7 +46,7 @@ function ResetForm({ token }: { token: string }) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { success, error } = await resetAction(token, values.password);
     if (success) {
-      console.log('Password reset successfully');
+      // TODO show success message in UI or smth
     } else {
       form.setError('root', { type: 'manual', message: error });
     }
