@@ -1,15 +1,18 @@
-import { getPayloadInstance } from '@/lib/payload';
 import { Container } from '@/components/ui/container';
 import { CmsLink } from '@/components/ui/cms-link';
 import { CmsIcon } from '@/components/ui/cms-icon';
 import { IconValue } from '@/fields/icon/icons';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from '@/components/ui/external-link';
+import { Footer as FooterType, Setting } from '@/payload-types';
 
 async function Footer() {
-  const payload = await getPayloadInstance();
-  const settings = await payload.findGlobal({ slug: 'settings', depth: 2 });
-  const footer = await payload.findGlobal({ slug: 'footer', depth: 2 });
+  const settings: Setting = await fetch(
+    'http://localhost:3000/api/globals/settings?depth=2',
+  ).then(res => res.json());
+  const footer: FooterType = await fetch(
+    'http://localhost:3000/api/globals/footer?depth=2',
+  ).then(res => res.json());
 
   return (
     <footer className="space-y-4 border-t py-4">

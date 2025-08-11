@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bungee.variable} ${poppins.variable}`}>
-        <Header />
+        {/*<Header />*/}
         {children}
         <Footer />
       </body>

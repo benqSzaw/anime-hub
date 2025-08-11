@@ -1,8 +1,8 @@
 import { CollectionSlug, DataFromCollectionSlug, getPayload } from 'payload';
-import configPromise from '@payload-config';
+import config from '@payload-config';
 
 async function getPayloadInstance() {
-  return await getPayload({ config: configPromise });
+  return await getPayload({ config });
 }
 
 async function getAllDocuments<T extends CollectionSlug>(
